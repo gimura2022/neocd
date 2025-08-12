@@ -1,0 +1,23 @@
+neocd(1)		    General Commands Manual		      neocd(1)
+
+NAME
+     neocd – simple wrapper
+
+DESCRYPTION
+     The neocd is simple wrapper for custom cd states.
+
+EXIT STATUS
+     The neocd utility exits 0 on success, and >0 if an error occurs.
+
+STANDARTS
+     The neocd utility is compliant with the IEEE Std 1003.1-2008 (“POSIX.1”)
+     specification.
+
+NOTES
+     For install the neocd you need to add alias with "source neocd1" for you
+     custom cd.
+
+AUTHORS
+     gimura ⟨gimura0001@gmail.com⟩
+
+Nixpkgs				August 13, 2025			       Nixpkgs
