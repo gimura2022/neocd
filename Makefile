@@ -5,5 +5,5 @@ all: neocd0
 clean:
 	$(RM) neocd0
 
-README: morse.1
+README: neocd.1
 	mandoc $< | col -b > $@
