@@ -1,3 +1,10 @@
 #!/bin/sh
 
-cd $(/usr/bin/env neocd0 $@)
+__neocd_output=$(/usr/bin/env neocd0 $@)
+__neocd_exit_code=$?
+
+if [[ 2 -eq $__neocd_exit_code ]]; then
+	cd $__neocd_output
+elif [[ 0 -eq $__neocd_exit_code ]]; then
+	echo -e $__neocd_output
+fi

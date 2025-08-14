@@ -13,7 +13,10 @@
 
 /* includes */
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
+#include <getopt.h>
 
 /* change directory */
 static void cd(const char* path)
@@ -38,15 +41,40 @@ static void custom_cd(const char* path)
 		cd(path); /* multisymboil args by default redirects to cd */
 }
 
+#define USAGE_SMALL	"usage: source neocd1 [-h] directory\n"
+#define USAGE		"	-h		display help message\n"	\
+			"	directory	new directory to change old\n" 
+
+/* display help message */
+static void usage(FILE* stream, bool small)
+{
+	fprintf(stream, small ? USAGE_SMALL : USAGE_SMALL USAGE);
+}
+
 /* main function */
 int main(int argc, char* argv[])
 {
+	int c;
+
+	/* process flags */
+	opterr = 0;
+	while ((c = getopt(argc, argv, "h")) != -1) switch (c) {
+	case 'h':
+		usage(stdout, false);
+		exit(0);	/* 0 exit code means not changing directory */
+	
+	case '?':
+		usage(stderr, true);
+		exit(1);	/* 1 exit code means error and we are not changing directory */
+	}
+
 	/* if no given args try to move up in directory tree */
-	if (argc == 1)
+	if (argv[optind] == NULL)
 		cd("..");
 	/* else process custom cd */
 	else
-		custom_cd(argv[1]);
+		custom_cd(argv[optind]);
 
-	return 0;
+	return 2;	/* two exit code means changing dirertory */
+
 }
